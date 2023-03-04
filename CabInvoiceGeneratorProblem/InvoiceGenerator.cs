@@ -9,11 +9,9 @@ namespace CabInvoiceGeneratorProblem
 {
     public class InvoiceGenerator
     {
-        //Constants
         private readonly double MINIMUM_COST_PER_KM;
         private readonly int COST_PER_TIME;
         private readonly double MINIMUM_FARE;
-        
         RideType rideType;
 
         /// <summary>
@@ -63,7 +61,24 @@ namespace CabInvoiceGeneratorProblem
                 Console.WriteLine("Given diatance => {0} and time => {1} should return\ntotal fare => {2}",distance,time,totalFare);
                 return Math.Max(totalFare, MINIMUM_FARE);
             }
-
         }
+        /// <summary>
+        /// Function to calculate Total Fare and generating  summary for multiple Rides. 
+        /// </summary>
+        /// <param name="distance"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        /// <exception cref="CabInvoiceException"></exception>
+        public InvoiceSummary CalculateFare(Ride[] rides)//uc2
+        {
+            double totalFare = 0;
+            foreach (Ride ride in rides)
+            {
+                totalFare += this.CalculateFare(ride.distance, ride.time);
+            }
+            Console.WriteLine("\nTotal fare for {0} rides => {1}", rides.Length,totalFare);
+            return new InvoiceSummary(rides.Length, totalFare);
+        }
+
     }
 }
