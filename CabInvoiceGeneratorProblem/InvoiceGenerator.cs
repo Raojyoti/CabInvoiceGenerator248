@@ -16,7 +16,6 @@ namespace CabInvoiceGeneratorProblem
         
         RideType rideType;
 
-
         /// <summary>
         /// Constructor to create RideRepository instance.
         /// </summary>
