@@ -77,7 +77,7 @@ namespace CabInvoiceGeneratorProblem
             {
                 totalFare += this.CalculateFare(ride.distance, ride.time);
             }
-           // Console.WriteLine("\nTotal fare for {0} rides => {1}", rides.Length,totalFare);
+            //Console.WriteLine("\nTotal fare for {0} rides => {1}", rides.Length,totalFare);
             return new InvoiceSummary(rides.Length, totalFare);
         }
         /// <summary>

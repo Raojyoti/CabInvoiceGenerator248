@@ -108,5 +108,30 @@ namespace TestCabInvoiceGenerator
             Assert.AreEqual(55, exceptedSummaryNew.averageFare);
             Console.WriteLine("\nForUserId: Riya\nNumber of rides => {0} \nTotal fare for {0} rides => {1} \nAverage fare for {0} rides => {2}", exceptedSummaryNew.numberOfRides, exceptedSummaryNew.totalFare, exceptedSummaryNew.averageFare);
         }
+
+        /// <summary>
+        /// Srep5- Premium Rides (Bonus) 
+        /// </summary>
+        [TestMethod]
+        public void GivenRidesNormalOrPremiumReturnInvoiceSummary()
+        {
+            //Creating instance of InvoiceGenerator for normal ride
+            InvoiceGenerator cabInvoice = new InvoiceGenerator(RideType.PREMIUM);
+            InvoiceGenerator cabInvoice1 = new InvoiceGenerator(RideType.NORMAL);
+            Ride[] rides =
+            {
+                new Ride(2.0, 5),
+                new Ride(3.0, 6)
+            };
+            //Generating summary for rides
+            InvoiceSummary summary = cabInvoice.CalculateFare(rides);
+            InvoiceSummary summary1 = cabInvoice1.CalculateFare(rides);
+            //calculate fare
+            InvoiceSummary exceptedSummary = new InvoiceSummary(2, 97.0);
+            InvoiceSummary exceptedSummary1 = new InvoiceSummary(2, 61.0);//(2, 30.0);
+            //Asserting values
+            Assert.AreEqual(exceptedSummary, summary);
+            Assert.AreEqual(exceptedSummary1, summary1);
+        }
     }
 }
