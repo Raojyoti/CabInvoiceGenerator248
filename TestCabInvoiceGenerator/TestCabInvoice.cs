@@ -18,7 +18,7 @@ namespace TestCabInvoiceGenerator
         [TestMethod]
         public void GiveDistanceAndTimeShouldReturnTotalFare(double distance, double time, double expected, RideType rideType)
         {
-            //Creating instance of InvoiceGenerator for normal ride
+            //Creating instance of InvoiceGenerator for rides
             InvoiceGenerator cabInvoice =new InvoiceGenerator(rideType);
             //calculate fare
             double totalFare = cabInvoice.CalculateFare(distance, time);//((1.5*15) + (2.5*2))=27.5 And ((3*10) + (5*1))=35
@@ -63,6 +63,25 @@ namespace TestCabInvoiceGenerator
             InvoiceSummary exceptedSummary = new InvoiceSummary(2, 30.0);
             //Asserting values
             Assert.AreEqual(exceptedSummary, summary);
+        }
+
+        /// <summary>
+        /// Srep3- Enhanced Invoice
+        /// </summary>
+        [TestMethod]
+        [DataRow(RideType.NORMAL)]
+        public void GivenProperDistanceAndTimeForMultipleRideShouldTotalNumberOfRidesAndTotalFareAndAverageFarePerRide(RideType rideType)
+        {
+            //Creating instance of InvoiceGenerator for normal ride
+            InvoiceGenerator cabInvoice = new InvoiceGenerator(rideType);
+            Ride[] rides = { new Ride(4.0, 5.0), new Ride(2.0, 5.0), new Ride(0.1, 0.5) };
+            //Generating summary for rides
+            InvoiceSummary exceptedSummary = cabInvoice.CalculateFare(rides);
+            //Asserting values
+            Assert.AreEqual(3, exceptedSummary.numberOfRides);//3
+            Assert.AreEqual(75, exceptedSummary.totalFare);//45+25+5=75
+            Assert.AreEqual(25, exceptedSummary.averageFare);//75/3=25
+            Console.WriteLine("\nNumber of rides => {0} \nTotal fare for {0} rides => {1} \nAverage fare for {0} rides => {2}", rides.Length, exceptedSummary.totalFare, exceptedSummary.averageFare);
         }
     }
 }
